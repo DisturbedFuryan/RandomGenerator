@@ -45,9 +45,6 @@ public:
     double RandomNumber( double minimum, double maximum );
     
 private:
-    /** Non-deterministic random number generator using hardware entropy source. */
-    std::random_device m_randomDevice;
-    
     /** Predefined random number generator. */
     std::default_random_engine* m_defaultRandomEngine;
 };

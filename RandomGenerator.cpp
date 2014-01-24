@@ -4,7 +4,8 @@ using namespace std;
 
 
 RandomGenerator::RandomGenerator() {
-    m_defaultRandomEngine = new default_random_engine( m_randomDevice() );
+    random_device randomDevice;  // Non-deterministic random number generator using hardware entropy source.
+    m_defaultRandomEngine = new default_random_engine( randomDevice() );
 }
 
 
