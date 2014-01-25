@@ -25,7 +25,7 @@ int main( int argc, char** argv ) {
     
     /* Random numbers of an unsigned integer type. */
     
-    unsigned int maxUnsignedInt = numeric_limits<unsigned int>::max();
+    unsigned int maxUnsignedInt = numeric_limits< unsigned int >::max();
     
     cout << "Random unsigned integers <" << ( maxUnsignedInt - 10 ) << ";" << maxUnsignedInt << ">: ";
     for ( int i = 0; i < 10; ++i ) {
