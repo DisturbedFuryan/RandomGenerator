@@ -1,5 +1,5 @@
-#ifndef RANDOMGENERATOR_H
-#define RANDOMGENERATOR_H
+#ifndef RANDOMGENERATOR_HPP
+#define RANDOMGENERATOR_HPP
 
 #include "Singleton.hpp"
 #include <random>
