@@ -16,27 +16,17 @@ using namespace std;
 int main( int argc, char** argv ) {
     RandomGenerator randomGenerator;
     
-    /* Random numbers of an integer type. */
-    cout << "Random integers <-10;10>: ";
+    /* Random numbers of the int type. */
+    cout << "Random ints: ";
     for ( int i = 0; i < 10; ++i ) {
-        cout << randomGenerator.RandomNumber( -10, 10 ) << " ";
+        cout << randomGenerator.RandomIntegerNumber< int >() << " ";
     }
     cout << endl;
     
-    /* Random numbers of an unsigned integer type. */
-    
-    unsigned int maxUnsignedInt = numeric_limits< unsigned int >::max();
-    
-    cout << "Random unsigned integers <" << ( maxUnsignedInt - 10 ) << ";" << maxUnsignedInt << ">: ";
+    /* Random numbers of the double type. */
+    cout << "Random doubles: ";
     for ( int i = 0; i < 10; ++i ) {
-        cout << randomGenerator.RandomNumber( ( maxUnsignedInt - 10 ), maxUnsignedInt ) << " ";
-    }
-    cout << endl;
-    
-    /* Random numbers of a double type. */
-    cout << "Random doubles (0;1): ";
-    for ( int i = 0; i < 10; ++i ) {
-        cout << randomGenerator.RandomNumber( 0.0d, 1.0d ) << " ";
+        cout << randomGenerator.RandomRealNumber< double >() << " ";
     }
     cout << endl;
     

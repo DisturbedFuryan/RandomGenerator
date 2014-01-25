@@ -2,6 +2,7 @@
 #define RANDOMGENERATOR_HPP
 
 #include "Singleton.hpp"
+#include <limits>
 #include <random>
 
 
@@ -20,31 +21,26 @@ public:
     ~RandomGenerator( void );
     
     /**
-     * Returns random number between two values of an integer type.
+     * Returns random integer number between two values.
      * 
      * @param  minimum  minimum value of random number
      * @param  maximum  maximum value of random number
-     * @return          random number of an integer type
+     * @return          random integer number
      */
-    int RandomNumber( int minimum, int maximum );
+    template< typename T >
+    T RandomIntegerNumber( const T minimum = std::numeric_limits< T >::min(),
+                           const T maximum = std::numeric_limits< T >::max() ) const;
     
     /**
-     * Returns random number between two values of an unsigned integer type.
+     * Returns random real number between two values.
      * 
      * @param  minimum  minimum value of random number
      * @param  maximum  maximum value of random number
-     * @return          random number of an unsigned integer type
+     * @return          random real number
      */
-    unsigned int RandomNumber( unsigned int minimum, unsigned int maximum );
-    
-    /**
-     * Returns random number between two values of a double type.
-     * 
-     * @param  minimum  minimum value of random number
-     * @param  maximum  maximum value of random number
-     * @return          random number of a double type
-     */
-    double RandomNumber( double minimum, double maximum );
+    template< typename T >
+    T RandomRealNumber( const T minimum = std::numeric_limits< T >::min(),
+                        const T maximum = std::numeric_limits< T >::max() ) const;
 
 
 private:
@@ -57,20 +53,16 @@ private:
 //======================================================================================================================
 
 
-inline int RandomGenerator::RandomNumber( int minimum, int maximum ) {
-    std::uniform_int_distribution< int > uniformIntDist( minimum, maximum );
+template< typename T >
+inline T RandomGenerator::RandomIntegerNumber( const T minimum, const T maximum ) const {
+    std::uniform_int_distribution< T > uniformIntDist( minimum, maximum );
     return uniformIntDist( *m_defaultRandomEngine );
 }
 
 
-inline unsigned int RandomGenerator::RandomNumber( unsigned int minimum, unsigned int maximum ) {
-    std::uniform_int_distribution< unsigned int > uniformIntDist( minimum, maximum );
-    return uniformIntDist( *m_defaultRandomEngine );
-}
-
-
-inline double RandomGenerator::RandomNumber( double minimum, double maximum ) {
-    std::uniform_real_distribution< double > uniformRealDist( minimum, maximum );
+template< typename T >
+inline T RandomGenerator::RandomRealNumber( const T minimum, const T maximum ) const {
+    std::uniform_real_distribution< T > uniformRealDist( minimum, maximum );
     return uniformRealDist( *m_defaultRandomEngine );
 }
 
