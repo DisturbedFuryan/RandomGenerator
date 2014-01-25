@@ -16,19 +16,29 @@ using namespace std;
 int main( int argc, char** argv ) {
     RandomGenerator randomGenerator;
     
-    /* Random numbers of the int type. */
-    cout << "Random ints: ";
-    for ( int i = 0; i < 10; ++i ) {
-        cout << randomGenerator.RandomIntegerNumber< int >() << " ";
-    }
-    cout << endl;
+    /* Random number of the int type. */
+    cout << "Random int: " << randomGenerator.RandomIntegerNumber< int >() << endl;
     
-    /* Random numbers of the double type. */
-    cout << "Random doubles: ";
-    for ( int i = 0; i < 10; ++i ) {
-        cout << randomGenerator.RandomRealNumber< double >() << " ";
+    /* Random number of the double type. */
+    cout << "Random double: " << randomGenerator.RandomRealNumber< double >() << endl;
+    
+    /* Array with random numbers of the int type. */
+    int* randomIntArray = randomGenerator.CreateRandomIntegerArray< int >( 5 );
+    cout << "Random array with ints: [ ";
+    for ( unsigned int u = 0; u < 5; ++u ) {
+        cout << randomIntArray[ u ] << " ";
     }
-    cout << endl;
+    cout << "]\n";
+    delete[] randomIntArray;
+    
+    /* Array with random numbers of the double type. */
+    double* randomDoubleArray = randomGenerator.CreateRandomRealArray< double >( 5 );
+    cout << "Random array with doubles: [ ";
+    for ( unsigned int u = 0; u < 5; ++u ) {
+        cout << randomDoubleArray[ u ] << " ";
+    }
+    cout << "]\n";
+    delete[] randomDoubleArray;
     
     return 0;
 }
