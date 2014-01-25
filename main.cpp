@@ -9,9 +9,9 @@ using namespace std;
 /**
  * The main() function.
  * 
- * @param argc  indicates how many arguments were entered on the command line when the program was started
- * @param argv  the arguments that were entered on the command line when the program was started
- * @return      indication how the program exited
+ * @param  argc  indicates how many arguments were entered on the command line when the program was started
+ * @param  argv  the arguments that were entered on the command line when the program was started
+ * @return       indication how the program exited
  */
 int main( int argc, char** argv ) {
     RandomGenerator randomGenerator;
