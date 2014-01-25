@@ -1,6 +1,7 @@
 #ifndef RANDOMGENERATOR_H
 #define RANDOMGENERATOR_H
 
+#include "Singleton.hpp"
 #include <random>
 
 
@@ -8,14 +9,15 @@
 /**
  * Generates random numbers.
  * 
- * @author Marcin Rainka
- * @version 1.0
+ * @author   Marcin Rainka
+ * @version  1.0
  */
-class RandomGenerator {
+class RandomGenerator : public ISingleton< RandomGenerator > {
 public:
-    RandomGenerator();
+
+    RandomGenerator( void );
     
-    ~RandomGenerator();
+    ~RandomGenerator( void );
     
     /**
      * Returns random number between two values of an integer type.
@@ -43,28 +45,32 @@ public:
      * @return         random number of a double type
      */
     double RandomNumber( double minimum, double maximum );
-    
+
+
 private:
-    /** Predefined random number generator. */
+
+    /** 
+     * Predefined random number generator.
+     */
     std::default_random_engine* m_defaultRandomEngine;
 };
 //======================================================================================================================
 
 
 inline int RandomGenerator::RandomNumber( int minimum, int maximum ) {
-    std::uniform_int_distribution<int> uniformIntDist( minimum, maximum );
+    std::uniform_int_distribution< int > uniformIntDist( minimum, maximum );
     return uniformIntDist( *m_defaultRandomEngine );
 }
 
 
 inline unsigned int RandomGenerator::RandomNumber( unsigned int minimum, unsigned int maximum ) {
-    std::uniform_int_distribution<unsigned int> uniformIntDist( minimum, maximum );
+    std::uniform_int_distribution< unsigned int > uniformIntDist( minimum, maximum );
     return uniformIntDist( *m_defaultRandomEngine );
 }
 
 
 inline double RandomGenerator::RandomNumber( double minimum, double maximum ) {
-    std::uniform_real_distribution<double> uniformRealDist( minimum, maximum );
+    std::uniform_real_distribution< double > uniformRealDist( minimum, maximum );
     return uniformRealDist( *m_defaultRandomEngine );
 }
 
