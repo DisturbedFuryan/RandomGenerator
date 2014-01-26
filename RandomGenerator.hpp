@@ -106,7 +106,7 @@ T* RandomGenerator::CreateRandomIntegerArray( const unsigned size, const T minim
         std::uniform_int_distribution< T > uniformIntDist( minimum, maximum );
         
         /* Fill the array with random numbers. */
-        for ( unsigned int u = 0; u < size; ++u ) {
+        for ( unsigned u = 0; u < size; ++u ) {
             randomIntegerArray[ u ] = uniformIntDist( *m_defaultRandomEngine );
         }
     }
@@ -126,7 +126,7 @@ T* RandomGenerator::CreateRandomRealArray( const unsigned size, const T minimum,
         std::uniform_real_distribution< T > uniformRealDist( minimum, maximum );
         
         /* Fill the array with random numbers. */
-        for ( unsigned int u = 0; u < size; ++u ) {
+        for ( unsigned u = 0; u < size; ++u ) {
             randomRealArray[ u ] = uniformRealDist( *m_defaultRandomEngine );
         }
     }
