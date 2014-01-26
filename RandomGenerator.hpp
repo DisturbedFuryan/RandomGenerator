@@ -52,7 +52,7 @@ public:
      * @return          pointer to allocated array with random integer numbers
      */
     template< typename T >
-    T* CreateRandomIntegerArray( const unsigned int size,
+    T* CreateRandomIntegerArray( const unsigned size,
                                  const T minimum = std::numeric_limits< T >::min(),
                                  const T maximum = std::numeric_limits< T >::max() ) const;
                            
@@ -66,7 +66,7 @@ public:
      * @return          pointer to allocated array with random real numbers
      */
     template< typename T >
-    T* CreateRandomRealArray( const unsigned int size,
+    T* CreateRandomRealArray( const unsigned size,
                               const T minimum = std::numeric_limits< T >::min(),
                               const T maximum = std::numeric_limits< T >::max() ) const;
 
@@ -96,7 +96,7 @@ inline T RandomGenerator::RandomRealNumber( const T minimum, const T maximum ) c
 
 
 template< typename T >
-T* RandomGenerator::CreateRandomIntegerArray( const unsigned int size, const T minimum, const T maximum ) const {
+T* RandomGenerator::CreateRandomIntegerArray( const unsigned size, const T minimum, const T maximum ) const {
     T* randomIntegerArray = nullptr;
     
     if ( size > 0 ) {
@@ -116,7 +116,7 @@ T* RandomGenerator::CreateRandomIntegerArray( const unsigned int size, const T m
 
 
 template< typename T >
-T* RandomGenerator::CreateRandomRealArray( const unsigned int size, const T minimum, const T maximum ) const {
+T* RandomGenerator::CreateRandomRealArray( const unsigned size, const T minimum, const T maximum ) const {
     T* randomRealArray = nullptr;
     
     if ( size > 0 ) {
