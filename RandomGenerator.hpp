@@ -52,7 +52,7 @@ public:
      * @return          pointer to allocated array with random integer numbers
      */
     template< typename T >
-    T* CreateRandomIntegerArray( const unsigned size,
+    T* CreateRandomIntegerArray( const unsigned long long size,
                                  const T minimum = std::numeric_limits< T >::min(),
                                  const T maximum = std::numeric_limits< T >::max() ) const;
                            
@@ -66,7 +66,7 @@ public:
      * @return          pointer to allocated array with random real numbers
      */
     template< typename T >
-    T* CreateRandomRealArray( const unsigned size,
+    T* CreateRandomRealArray( const unsigned long long size,
                               const T minimum = std::numeric_limits< T >::min(),
                               const T maximum = std::numeric_limits< T >::max() ) const;
 
@@ -96,7 +96,7 @@ inline T RandomGenerator::RandomRealNumber( const T minimum, const T maximum ) c
 
 
 template< typename T >
-T* RandomGenerator::CreateRandomIntegerArray( const unsigned size, const T minimum, const T maximum ) const {
+T* RandomGenerator::CreateRandomIntegerArray( const unsigned long long size, const T minimum, const T maximum ) const {
     T* randomIntegerArray = nullptr;
     
     if ( size > 0 ) {
@@ -106,8 +106,8 @@ T* RandomGenerator::CreateRandomIntegerArray( const unsigned size, const T minim
         std::uniform_int_distribution< T > uniformIntDist( minimum, maximum );
         
         /* Fill the array with random numbers. */
-        for ( unsigned u = 0; u < size; ++u ) {
-            randomIntegerArray[ u ] = uniformIntDist( *m_defaultRandomEngine );
+        for ( unsigned long long i = 0; i < size; ++i ) {
+            randomIntegerArray[ i ] = uniformIntDist( *m_defaultRandomEngine );
         }
     }
     
@@ -116,7 +116,7 @@ T* RandomGenerator::CreateRandomIntegerArray( const unsigned size, const T minim
 
 
 template< typename T >
-T* RandomGenerator::CreateRandomRealArray( const unsigned size, const T minimum, const T maximum ) const {
+T* RandomGenerator::CreateRandomRealArray( const unsigned long long size, const T minimum, const T maximum ) const {
     T* randomRealArray = nullptr;
     
     if ( size > 0 ) {
@@ -126,8 +126,8 @@ T* RandomGenerator::CreateRandomRealArray( const unsigned size, const T minimum,
         std::uniform_real_distribution< T > uniformRealDist( minimum, maximum );
         
         /* Fill the array with random numbers. */
-        for ( unsigned u = 0; u < size; ++u ) {
-            randomRealArray[ u ] = uniformRealDist( *m_defaultRandomEngine );
+        for ( unsigned long long i = 0; i < size; ++i ) {
+            randomRealArray[ i ] = uniformRealDist( *m_defaultRandomEngine );
         }
     }
     

@@ -25,8 +25,8 @@ int main( int argc, char** argv ) {
     /* Array with random numbers of the int type. */
     int* randomIntArray = randomGenerator.CreateRandomIntegerArray< int >( 5 );
     cout << "Random array with ints: [ ";
-    for ( unsigned u = 0; u < 5; ++u ) {
-        cout << randomIntArray[ u ] << " ";
+    for ( unsigned i = 0; i < 5; ++i ) {
+        cout << randomIntArray[ i ] << " ";
     }
     cout << "]\n";
     delete[] randomIntArray;
@@ -34,8 +34,8 @@ int main( int argc, char** argv ) {
     /* Array with random numbers of the double type. */
     double* randomDoubleArray = randomGenerator.CreateRandomRealArray< double >( 5 );
     cout << "Random array with doubles: [ ";
-    for ( unsigned u = 0; u < 5; ++u ) {
-        cout << randomDoubleArray[ u ] << " ";
+    for ( unsigned i = 0; i < 5; ++i ) {
+        cout << randomDoubleArray[ i ] << " ";
     }
     cout << "]\n";
     delete[] randomDoubleArray;
