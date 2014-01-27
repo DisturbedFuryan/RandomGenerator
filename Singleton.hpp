@@ -12,7 +12,7 @@
  * @author   Marcin Rainka
  * @version  2.0
  */
-template< class T >
+template< typename T >
 class ISingleton {
 public:
     ISingleton( void );
@@ -40,11 +40,11 @@ private:
 //======================================================================================================================
 
 
-template< class T >
+template< typename T >
 T* ISingleton< T >::ms_singleton = nullptr;
 
 
-template< class T >
+template< typename T >
 inline ISingleton< T >::ISingleton( void ) {
     assert( !ms_singleton );
     intptr_t offset = ( ( intptr_t )( T* )1 - ( intptr_t )( ISingleton< T >* )( T* )1 );
@@ -52,21 +52,21 @@ inline ISingleton< T >::ISingleton( void ) {
 }
 
 
-template< class T >
+template< typename T >
 inline ISingleton< T >::~ISingleton( void ) {
     assert( ms_singleton );
     ms_singleton = nullptr;
 }
 
 
-template< class T >
+template< typename T >
 inline T& ISingleton< T >::Singleton( void ) {
     assert( ms_singleton );
     return *ms_singleton;
 }
 
 
-template< class T >
+template< typename T >
 inline T* ISingleton< T >::SingletonPtr( void ) {
     return ms_singleton;
 }
