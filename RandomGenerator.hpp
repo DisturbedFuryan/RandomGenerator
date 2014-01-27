@@ -73,10 +73,18 @@ public:
 
 private:
 
+    static std::default_random_engine ms_defaultRandomEngine;
+
+    static class DefaultRandomEngineSeeder {
+    public:
+        DefaultRandomEngineSeeder( void )
+            { std::random_device randomDevice; ms_defaultRandomEngine.seed( randomDevice() ); }
+    } ms_defaultRandomEngineSeeder;
+
     /** 
      * Predefined random number generator.
      */
-    std::default_random_engine* m_defaultRandomEngine;
+    //std::default_random_engine* m_defaultRandomEngine;
 };
 //======================================================================================================================
 
@@ -84,14 +92,14 @@ private:
 template< typename T >
 inline T RandomGenerator::RandomIntegerNumber( const T minimum, const T maximum ) const {
     std::uniform_int_distribution< T > uniformIntDist( minimum, maximum );
-    return uniformIntDist( *m_defaultRandomEngine );
+    return uniformIntDist( ms_defaultRandomEngine );
 }
 
 
 template< typename T >
 inline T RandomGenerator::RandomRealNumber( const T minimum, const T maximum ) const {
     std::uniform_real_distribution< T > uniformRealDist( minimum, maximum );
-    return uniformRealDist( *m_defaultRandomEngine );
+    return uniformRealDist( ms_defaultRandomEngine );
 }
 
 
@@ -107,7 +115,7 @@ T* RandomGenerator::CreateRandomIntegerArray( const unsigned long long size, con
         
         /* Fill the array with random numbers. */
         for ( unsigned long long i = 0; i < size; ++i ) {
-            randomIntegerArray[ i ] = uniformIntDist( *m_defaultRandomEngine );
+            randomIntegerArray[ i ] = uniformIntDist( ms_defaultRandomEngine );
         }
     }
     
@@ -127,7 +135,7 @@ T* RandomGenerator::CreateRandomRealArray( const unsigned long long size, const 
         
         /* Fill the array with random numbers. */
         for ( unsigned long long i = 0; i < size; ++i ) {
-            randomRealArray[ i ] = uniformRealDist( *m_defaultRandomEngine );
+            randomRealArray[ i ] = uniformRealDist( ms_defaultRandomEngine );
         }
     }
     
