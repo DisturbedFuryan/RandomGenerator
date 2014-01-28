@@ -1,8 +1,24 @@
-#include "RandomGenerator.hpp"
+#include "RandomIntGenerator.hpp"
 #include <iostream>
-#include <limits>
 
 using namespace std;
+
+
+/*
+    TODO:
+    
+    RandomGenerator< double > randomDoublesGenerator;
+    
+    randomDoublesGenerator.GetOne( 0.0d, 1.0d );
+    
+    double* array = randomDoublesGenerator.CreateArray( 2000000, 0.0d, 1.0d );
+    
+    double number;
+    randomDoublesGenerator.MakeRandom( number, 0.0d, 1.0d );
+    randomDoublesGenerator.MakeRandom( array, 2000000, 0.0d, 1.0d );
+    
+    delete[] array;
+*/
 
 
 //**********************************************************************************************************************
@@ -14,31 +30,19 @@ using namespace std;
  * @return       indication how the program exited
  */
 int main( int argc, char** argv ) {
-    RandomGenerator randomGenerator;
+    RandomIntGenerator< int > randIntGenerator;
     
-    /* Random number of the int type. */
-    cout << "Random int: " << randomGenerator.RandomIntegerNumber< int >() << endl;
+    randIntGenerator.Prepare( 11, 20 );
     
-    /* Random number of the double type. */
-    cout << "Random double: " << randomGenerator.RandomRealNumber< double >() << endl;
-    
-    /* Array with random numbers of the int type. */
-    int* randomIntArray = randomGenerator.CreateRandomIntegerArray< int >( 5 );
-    cout << "Random array with ints: [ ";
     for ( unsigned i = 0; i < 5; ++i ) {
-        cout << randomIntArray[ i ] << " ";
+        cout << randIntGenerator.GetNext() << endl;
     }
-    cout << "]\n";
-    delete[] randomIntArray;
     
-    /* Array with random numbers of the double type. */
-    double* randomDoubleArray = randomGenerator.CreateRandomRealArray< double >( 5 );
-    cout << "Random array with doubles: [ ";
+    cout << randIntGenerator.GetOne( 1, 10) << endl;
+    
     for ( unsigned i = 0; i < 5; ++i ) {
-        cout << randomDoubleArray[ i ] << " ";
+        cout << randIntGenerator.GetNext() << endl;
     }
-    cout << "]\n";
-    delete[] randomDoubleArray;
     
     return 0;
 }

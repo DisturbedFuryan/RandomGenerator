@@ -1,146 +1,115 @@
 #ifndef RANDOMGENERATOR_HPP
 #define RANDOMGENERATOR_HPP
 
-#include "Singleton.hpp"
-#include <limits>
 #include <random>
 
 
 //======================================================================================================================
 /**
- * Generates random numbers.
+ * Generates non-deterministic random numbers or pseudo-random, if there is no support.
  * 
  * @author   Marcin Rainka
  * @version  1.0
  */
-class RandomGenerator : public ISingleton< RandomGenerator > {
+template< typename T >
+class IRandomGenerator {
 public:
 
-    RandomGenerator( void );
-    
-    ~RandomGenerator( void );
-    
+    IRandomGenerator( void );
+
     /**
-     * Returns random integer number between two values.
+     * Gets a single random number within a range.
      * 
-     * @param  minimum  minimum value of random number
-     * @param  maximum  maximum value of random number
-     * @return          random integer number
+     * @param  min  minimum value of random number
+     * @param  max  maximum value of random number
+     * @return      single random number
      */
-    template< typename T >
-    T RandomIntegerNumber( const T minimum = std::numeric_limits< T >::min(),
-                           const T maximum = std::numeric_limits< T >::max() ) const;
+    virtual T GetOne( const T& min, const T& max ) = 0;
     
     /**
-     * Returns random real number between two values.
+     * Prepares for creating random numbers within a range.
      * 
-     * @param  minimum  minimum value of random number
-     * @param  maximum  maximum value of random number
-     * @return          random real number
+     * @param  min  minimum value of random number
+     * @param  max  maximum value of random number
      */
-    template< typename T >
-    T RandomRealNumber( const T minimum = std::numeric_limits< T >::min(),
-                        const T maximum = std::numeric_limits< T >::max() ) const;
+    virtual void Prepare( const T& min, const T& max ) = 0;
     
     /**
-     * Creates an array with random integer numbers and returns pointer to the allocated array.
-     * IMPORTANT: You will have to deallocate array yourself by delete[] instruction!
+     * Gets a random number within a range defined by Prepare().
      * 
-     * @param  size     size of array
-     * @param  minimum  minimum value of random number
-     * @param  maximum  maximum value of random number
-     * @return          pointer to allocated array with random integer numbers
+     * @return  random number within a defined range
      */
-    template< typename T >
-    T* CreateRandomIntegerArray( const unsigned long long size,
-                                 const T minimum = std::numeric_limits< T >::min(),
-                                 const T maximum = std::numeric_limits< T >::max() ) const;
-                           
+    virtual T GetNext( void ) = 0;
+    
     /**
-     * Creates an array with random real numbers and returns pointer to the allocated array.
-     * IMPORTANT: You will have to deallocate array yourself by delete[] instruction!
+     * Checks is there a support for non-deterministic random number generation.
      * 
-     * @param  size     size of array
-     * @param  minimum  minimum value of random number
-     * @param  maximum  maximum value of random number
-     * @return          pointer to allocated array with random real numbers
+     * @return  true when there is a support and false when there is no
      */
-    template< typename T >
-    T* CreateRandomRealArray( const unsigned long long size,
-                              const T minimum = std::numeric_limits< T >::min(),
-                              const T maximum = std::numeric_limits< T >::max() ) const;
+    bool IsDeviceSupport( void ) const;
 
 
-private:
-
-    static std::default_random_engine ms_defaultRandomEngine;
-
-    static class DefaultRandomEngineSeeder {
-    public:
-        DefaultRandomEngineSeeder( void )
-            { std::random_device randomDevice; ms_defaultRandomEngine.seed( randomDevice() ); }
-    } ms_defaultRandomEngineSeeder;
+protected:
 
     /** 
      * Predefined random number generator.
      */
-    //std::default_random_engine* m_defaultRandomEngine;
+    static std::default_random_engine ms_defaultRandomEngine;
+    
+    /**
+     * Keeps the information about support for non-deterministic random number generation.
+     */
+    static bool ms_deviceSupport;
+    
+    /**
+     * Static member of the auxiliary DefaultRandomEngineSeeder class.
+     * Thanks to it, the default_random_engine object will be seeded only once.
+     */
+    static class DefaultRandomEngineSeeder {
+    public:
+        DefaultRandomEngineSeeder( void ) {
+            // Creating non-deterministic random number generator using hardware entropy source.
+            // NOTE: Numbers may be pseudo-random, if there is no support!
+            std::random_device randomDevice;
+            
+            // Checking is there a support for non-deterministic random number generation.
+            ms_deviceSupport = ( randomDevice.entropy() > 0 );
+            
+            // Seeding the engine with created random generator.
+            ms_defaultRandomEngine.seed( randomDevice() );
+        }
+    } ms_defaultRandomEngineSeeder;
 };
 //======================================================================================================================
 
 
-template< typename T >
-inline T RandomGenerator::RandomIntegerNumber( const T minimum, const T maximum ) const {
-    std::uniform_int_distribution< T > uniformIntDist( minimum, maximum );
-    return uniformIntDist( ms_defaultRandomEngine );
+
+
+template < typename T >
+IRandomGenerator< T >::IRandomGenerator( void ) {
+    // Forcing the creation of objects.
+    &ms_defaultRandomEngine;
+    &ms_defaultRandomEngineSeeder;
 }
 
 
 template< typename T >
-inline T RandomGenerator::RandomRealNumber( const T minimum, const T maximum ) const {
-    std::uniform_real_distribution< T > uniformRealDist( minimum, maximum );
-    return uniformRealDist( ms_defaultRandomEngine );
+inline bool IRandomGenerator< T >::IsDeviceSupport( void ) const {
+    return ms_deviceSupport;
 }
 
 
 template< typename T >
-T* RandomGenerator::CreateRandomIntegerArray( const unsigned long long size, const T minimum, const T maximum ) const {
-    T* randomIntegerArray = nullptr;
-    
-    if ( size > 0 ) {
-        /* Allocation. */
-        randomIntegerArray = new T[ size ];
-        
-        std::uniform_int_distribution< T > uniformIntDist( minimum, maximum );
-        
-        /* Fill the array with random numbers. */
-        for ( unsigned long long i = 0; i < size; ++i ) {
-            randomIntegerArray[ i ] = uniformIntDist( ms_defaultRandomEngine );
-        }
-    }
-    
-    return randomIntegerArray;
-}
+std::default_random_engine IRandomGenerator< T >::ms_defaultRandomEngine;
+
+
+/* ms_deviceSupport is initially false, but the DefaultRandomEngineSeeder constructor will verify it. */
+template< typename T >
+bool IRandomGenerator< T >::ms_deviceSupport = false;
 
 
 template< typename T >
-T* RandomGenerator::CreateRandomRealArray( const unsigned long long size, const T minimum, const T maximum ) const {
-    T* randomRealArray = nullptr;
-    
-    if ( size > 0 ) {
-        /* Allocation. */
-        randomRealArray = new T[ size ];
-        
-        std::uniform_real_distribution< T > uniformRealDist( minimum, maximum );
-        
-        /* Fill the array with random numbers. */
-        for ( unsigned long long i = 0; i < size; ++i ) {
-            randomRealArray[ i ] = uniformRealDist( ms_defaultRandomEngine );
-        }
-    }
-    
-    return randomRealArray;
-}
+typename IRandomGenerator< T >::DefaultRandomEngineSeeder IRandomGenerator< T >::ms_defaultRandomEngineSeeder;
 
 
 #endif
