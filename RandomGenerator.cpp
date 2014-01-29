@@ -3,7 +3,7 @@
 
 
 template < typename TSpec, typename TDist >
-IRandomGenerator< TSpec, TDist >::IRandomGenerator( void ) : m_uniformDistribution( nullptr ) {
+IRandomGenerator< TSpec, TDist >::IRandomGenerator( void ) : m_randomNumberDistribution( nullptr ) {
     // Forcing the creation of objects.
     &ms_defaultRandomEngine;
     &ms_defaultRandomEngineSeeder;
@@ -12,45 +12,80 @@ IRandomGenerator< TSpec, TDist >::IRandomGenerator( void ) : m_uniformDistributi
 
 template < typename TSpec, typename TDist >
 IRandomGenerator< TSpec, TDist >::~IRandomGenerator( void ) {
-    CleanUniformDistribution();
+    CleanRandomNumberDistribution();
 }
 
 
 template < typename TSpec, typename TDist >
 inline TSpec IRandomGenerator< TSpec, TDist >::GetOne( const TSpec& min, const TSpec& max ) const {
-    TDist uniformDistribution( min, max );
-    return uniformDistribution( ms_defaultRandomEngine );
+    TDist randomNumberDistribution( min, max );
+    return randomNumberDistribution( ms_defaultRandomEngine );
+}
+
+
+template < typename TSpec, typename TDist >
+TSpec* IRandomGenerator< TSpec, TDist >::CreateOneArray( const unsigned long long& size,
+                                                         const TSpec& min, const TSpec& max ) const {
+    TSpec* randomArray = nullptr;
+    
+    if ( size > 0 ) {
+        randomArray = new TSpec[ size ];
+        
+        TDist randomNumberDistribution( min, max );
+        
+        for ( unsigned long long i = 0; i < size; ++i ) {
+            randomArray[ i ] = randomNumberDistribution( ms_defaultRandomEngine );
+        }
+    }
+    
+    return randomArray;
 }
 
 
 template < typename TSpec, typename TDist >
 inline void IRandomGenerator< TSpec, TDist >::MakeOneRandom( TSpec& number, const TSpec& min, const TSpec& max ) const {
-    TDist uniformDistribution( min, max );
-    number = uniformDistribution( ms_defaultRandomEngine );
+    TDist randomNumberDistribution( min, max );
+    number = randomNumberDistribution( ms_defaultRandomEngine );
 }
 
 
 template < typename TSpec, typename TDist >
 inline void IRandomGenerator< TSpec, TDist >::Prepare( const TSpec& min, const TSpec& max ) {
-    // Clean a previous uniform distribution.
-    CleanUniformDistribution();
+    // Clean a previous distribution.
+    CleanRandomNumberDistribution();
     
     // Make a new one.
-    m_uniformDistribution = new TDist( min, max );
+    m_randomNumberDistribution = new TDist( min, max );
 }
 
 
 template < typename TSpec, typename TDist >
 inline TSpec IRandomGenerator< TSpec, TDist >::GetNext( void ) const {
-    assert( m_uniformDistribution );
-    return ( *m_uniformDistribution )( ms_defaultRandomEngine );
+    assert( m_randomNumberDistribution );
+    return ( *m_randomNumberDistribution )( ms_defaultRandomEngine );
+}
+
+
+template < typename TSpec, typename TDist >
+TSpec* IRandomGenerator< TSpec, TDist >::CreateNextArray( const unsigned long long& size ) const {
+    TSpec* randomArray = nullptr;
+    
+    if ( size > 0 ) {
+        randomArray = new TSpec[ size ];
+        
+        for ( unsigned long long i = 0; i < size; ++i ) {
+            randomArray[ i ] = ( *m_randomNumberDistribution )( ms_defaultRandomEngine );
+        }
+    }
+    
+    return randomArray;
 }
 
 
 template < typename TSpec, typename TDist >
 inline void IRandomGenerator< TSpec, TDist >::MakeNextRandom( TSpec& number ) const {
-    assert( m_uniformDistribution );
-    number = ( *m_uniformDistribution )( ms_defaultRandomEngine );
+    assert( m_randomNumberDistribution );
+    number = ( *m_randomNumberDistribution )( ms_defaultRandomEngine );
 }
 
 
@@ -75,9 +110,9 @@ IRandomGenerator< TSpec, TDist >::ms_defaultRandomEngineSeeder;
 
 
 template < typename TSpec, typename TDist >
-inline void IRandomGenerator< TSpec, TDist >::CleanUniformDistribution( void ) {
-    if ( m_uniformDistribution ) {
-        delete m_uniformDistribution;
-        m_uniformDistribution = nullptr;
+inline void IRandomGenerator< TSpec, TDist >::CleanRandomNumberDistribution( void ) {
+    if ( m_randomNumberDistribution ) {
+        delete m_randomNumberDistribution;
+        m_randomNumberDistribution = nullptr;
     }
 }

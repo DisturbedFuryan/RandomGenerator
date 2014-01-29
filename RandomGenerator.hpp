@@ -29,6 +29,17 @@ public:
     TSpec GetOne( const TSpec& min, const TSpec& max ) const;
     
     /**
+     * Creates a single array filled with random numbers.
+     * IMPORTANT: You will have to remember about deallocation with delete[] for your own!
+     * 
+     * @param  size  size of the array
+     * @param  min   minimum value of random numbers
+     * @param  max   maximum value of random numbers
+     * @return       pointer to allocated and filled array
+     */
+    TSpec* CreateOneArray( const unsigned long long& size, const TSpec& min, const TSpec& max ) const;
+    
+    /**
      * Changes an input number into random number within a range.
      * 
      * @param  number  number going to be random
@@ -51,6 +62,15 @@ public:
      * @return  random number within a defined range
      */
     TSpec GetNext( void ) const;
+    
+    /**
+     * Creates an array filled with random numbers within a range defined by Prepare().
+     * IMPORTANT: You will have to remember about deallocation with delete[] for your own!
+     * 
+     * @param  size  size of the array
+     * @return       pointer to allocated and filled array
+     */
+    TSpec* CreateNextArray( const unsigned long long& size ) const;
     
     /**
      * Changes an input number into random number within a range defined by Prepare().
@@ -101,12 +121,12 @@ protected:
     /**
      * Random number distribution.
      */
-    TDist* m_uniformDistribution;
+    TDist* m_randomNumberDistribution;
     
     /**
      * Cleans a random number distribution.
      */
-    void CleanUniformDistribution( void );
+    void CleanRandomNumberDistribution( void );
 };
 //======================================================================================================================
 
