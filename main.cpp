@@ -1,4 +1,5 @@
 #include "RandomIntGenerator.hpp"
+#include "RandomRealGenerator.hpp"
 #include <iostream>
 
 using namespace std;
@@ -19,6 +20,22 @@ int main( int argc, char** argv ) {
     // Print information about support.
     cout << "There is "
          << ( randIntGenerator.IsDeviceSupport() ? "device support, hooray!" : "no device support, sorry." ) << endl;
+    
+    randIntGenerator.Prepare( 1, 10 );
+    
+    for ( unsigned i = 0; i < 10; ++i ) {
+        cout << randIntGenerator.GetNext() << " ";
+    }
+    cout << endl;
+    
+    RandomRealGenerator< double > randRealGenerator;
+    
+    randRealGenerator.Prepare( 0.0d, 1.0d );
+    
+    for ( unsigned i = 0; i < 10; ++i ) {
+        cout << randRealGenerator.GetNext() << " ";
+    }
+    cout << endl;
     
     return 0;
 }

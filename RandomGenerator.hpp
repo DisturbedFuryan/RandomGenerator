@@ -11,11 +11,13 @@
  * @author   Marcin Rainka
  * @version  1.0
  */
-template < typename T >
+template < typename TSpec, typename TDist >
 class IRandomGenerator {
 public:
 
     IRandomGenerator( void );
+    
+    ~IRandomGenerator( void );
 
     /**
      * Gets a single random number within a range.
@@ -24,7 +26,7 @@ public:
      * @param  max  maximum value of random number
      * @return      single random number
      */
-    virtual T GetOne( const T& min, const T& max ) const = 0;
+    TSpec GetOne( const TSpec& min, const TSpec& max ) const;
     
     /**
      * Changes an input number into random number within a range.
@@ -33,7 +35,7 @@ public:
      * @param  min     minimum value of random number
      * @param  max     maximum value of random number
      */
-    virtual void MakeOneRandom( T& number, const T& min, const T& max ) const = 0;
+    void MakeOneRandom( TSpec& number, const TSpec& min, const TSpec& max ) const;
     
     /**
      * Prepares for creating random numbers within a range.
@@ -41,21 +43,21 @@ public:
      * @param  min  minimum value of random number
      * @param  max  maximum value of random number
      */
-    virtual void Prepare( const T& min, const T& max ) = 0;
+    void Prepare( const TSpec& min, const TSpec& max );
     
     /**
      * Gets a random number within a range defined by Prepare().
      * 
      * @return  random number within a defined range
      */
-    virtual T GetNext( void ) const = 0;
+    TSpec GetNext( void ) const;
     
     /**
      * Changes an input number into random number within a range defined by Prepare().
      * 
      * @param  number  number going to be random
      */
-    virtual void MakeNextRandom( T& number ) const = 0;
+    void MakeNextRandom( TSpec& number ) const;
     
     /**
      * Checks is there a support for non-deterministic random number generation.
@@ -89,12 +91,22 @@ protected:
             std::random_device randomDevice;
             
             // Checking is there a support for non-deterministic random number generation.
-            ms_deviceSupport = ( randomDevice.entropy() > 0 );
+            ms_deviceSupport = ( randomDevice.entropy() > 0.0d );
             
             // Seeding the engine with created random generator.
             ms_defaultRandomEngine.seed( randomDevice() );
         }
     } ms_defaultRandomEngineSeeder;
+    
+    /**
+     * Random number distribution.
+     */
+    TDist* m_uniformDistribution;
+    
+    /**
+     * Cleans a random number distribution.
+     */
+    void CleanUniformDistribution( void );
 };
 //======================================================================================================================
 

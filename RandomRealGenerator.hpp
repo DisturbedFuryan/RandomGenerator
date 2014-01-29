@@ -1,5 +1,5 @@
-#ifndef RANDOMINTGENERATOR_HPP
-#define RANDOMINTGENERATOR_HPP
+#ifndef RANDOMREALGENERATOR_HPP
+#define RANDOMREALGENERATOR_HPP
 
 #include "RandomGenerator.hpp"
 #include <random>
@@ -7,13 +7,13 @@
 
 //======================================================================================================================
 /**
- * Generates non-deterministic random integer numbers or pseudo-random, if there is no support.
+ * Generates non-deterministic random real numbers or pseudo-random, if there is no support.
  * 
  * @author   Marcin Rainka
  * @version  1.0
  */
 template < typename T >
-class RandomIntGenerator : public IRandomGenerator< T, std::uniform_int_distribution< T > > {};
+class RandomRealGenerator : public IRandomGenerator< T, std::uniform_real_distribution< T > > {};
 //======================================================================================================================
 
 
