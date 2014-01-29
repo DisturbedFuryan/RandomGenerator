@@ -13,7 +13,7 @@ using namespace std;
  * @return       indication how the program exited
  */
 int main( int argc, char** argv ) {
-    // Creating random integer generator, precisely - the random int type numbers generator.
+    // Creating a random integer generator, precisely - the random int type numbers generator.
     RandomIntGenerator< int > randIntGenerator;
     
     // Print information about support.

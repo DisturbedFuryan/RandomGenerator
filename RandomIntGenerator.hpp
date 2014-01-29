@@ -2,7 +2,6 @@
 #define RANDOMINTGENERATOR_HPP
 
 #include "RandomGenerator.hpp"
-#include <cassert>
 #include <random>
 
 

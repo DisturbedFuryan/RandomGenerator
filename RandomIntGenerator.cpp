@@ -1,4 +1,5 @@
 #include "RandomIntGenerator.hpp"
+#include <cassert>
 
 
 template < typename T >
