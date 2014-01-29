@@ -12,14 +12,21 @@ RandomIntGenerator< T >::~RandomIntGenerator( void ) {
 
 
 template < typename T >
-T RandomIntGenerator< T >::GetOne( const T& min, const T& max ) {
+inline T RandomIntGenerator< T >::GetOne( const T& min, const T& max ) const {
     std::uniform_int_distribution< T > uniformIntDistribution( min, max );
     return uniformIntDistribution( IRandomGenerator< T >::ms_defaultRandomEngine );
 }
 
 
 template < typename T >
-void RandomIntGenerator< T >::Prepare( const T& min, const T& max ) {
+inline void RandomIntGenerator< T >::MakeOneRandom( T& number, const T& min, const T& max ) const {
+    std::uniform_int_distribution< T > uniformIntDistribution( min, max );
+    number = uniformIntDistribution( IRandomGenerator< T >::ms_defaultRandomEngine );
+}
+
+
+template < typename T >
+inline void RandomIntGenerator< T >::Prepare( const T& min, const T& max ) {
     // Clean a previous uniform int distribution.
     CleanUniformIntDistribution();
     
@@ -29,14 +36,21 @@ void RandomIntGenerator< T >::Prepare( const T& min, const T& max ) {
 
 
 template < typename T >
-T RandomIntGenerator< T >::GetNext( void ) {
+inline T RandomIntGenerator< T >::GetNext( void ) const {
     assert( m_uniformIntDistribution );
     return ( *m_uniformIntDistribution )( IRandomGenerator< T >::ms_defaultRandomEngine );
 }
 
 
 template < typename T >
-void RandomIntGenerator< T >::CleanUniformIntDistribution( void ) {
+inline void RandomIntGenerator< T >::MakeNextRandom( T& number ) const {
+    assert( m_uniformIntDistribution );
+    number = ( *m_uniformIntDistribution )( IRandomGenerator< T >::ms_defaultRandomEngine );
+}
+
+
+template < typename T >
+inline void RandomIntGenerator< T >::CleanUniformIntDistribution( void ) {
     if ( m_uniformIntDistribution ) {
         delete m_uniformIntDistribution;
         m_uniformIntDistribution = nullptr;

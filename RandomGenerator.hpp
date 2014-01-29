@@ -24,7 +24,16 @@ public:
      * @param  max  maximum value of random number
      * @return      single random number
      */
-    virtual T GetOne( const T& min, const T& max ) = 0;
+    virtual T GetOne( const T& min, const T& max ) const = 0;
+    
+    /**
+     * Changes an input number into random number within a range.
+     * 
+     * @param  number  number going to be random
+     * @param  min     minimum value of random number
+     * @param  max     maximum value of random number
+     */
+    virtual void MakeOneRandom( T& number, const T& min, const T& max ) const = 0;
     
     /**
      * Prepares for creating random numbers within a range.
@@ -39,7 +48,14 @@ public:
      * 
      * @return  random number within a defined range
      */
-    virtual T GetNext( void ) = 0;
+    virtual T GetNext( void ) const = 0;
+    
+    /**
+     * Changes an input number into random number within a range defined by Prepare().
+     * 
+     * @param  number  number going to be random
+     */
+    virtual void MakeNextRandom( T& number ) const = 0;
     
     /**
      * Checks is there a support for non-deterministic random number generation.

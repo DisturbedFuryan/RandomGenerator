@@ -4,23 +4,6 @@
 using namespace std;
 
 
-/*
-    TODO:
-    
-    RandomGenerator< double > randomDoublesGenerator;
-    
-    randomDoublesGenerator.GetOne( 0.0d, 1.0d );
-    
-    double* array = randomDoublesGenerator.CreateArray( 2000000, 0.0d, 1.0d );
-    
-    double number;
-    randomDoublesGenerator.MakeRandom( number, 0.0d, 1.0d );
-    randomDoublesGenerator.MakeRandom( array, 2000000, 0.0d, 1.0d );
-    
-    delete[] array;
-*/
-
-
 //**********************************************************************************************************************
 /**
  * The main() function.

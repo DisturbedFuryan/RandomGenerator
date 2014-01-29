@@ -27,7 +27,16 @@ public:
      * @param  max  maximum value of random number
      * @return      random integer number
      */
-    T GetOne( const T& min, const T& max );
+    T GetOne( const T& min, const T& max ) const;
+    
+    /**
+     * Changes an input integer number into random integer number within a range.
+     * 
+     * @param  number  integer number going to be random
+     * @param  min     minimum value of random number
+     * @param  max     maximum value of random number
+     */
+    void MakeOneRandom( T& number, const T& min, const T& max ) const;
     
     /**
      * Prepares for creating random integer numbers within a range.
@@ -42,7 +51,14 @@ public:
      * 
      * @return  random integer number within a defined range
      */
-    T GetNext( void );
+    T GetNext( void ) const;
+    
+    /**
+     * Changes an input integer number into random integer number within a range defined by Prepare().
+     * 
+     * @param  number  integer number going to be random within a defined range
+     */
+    void MakeNextRandom( T& number ) const;
 
 
 private:
