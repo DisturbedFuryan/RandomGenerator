@@ -30,19 +30,12 @@ using namespace std;
  * @return       indication how the program exited
  */
 int main( int argc, char** argv ) {
+    // Creating random integer generator, precisely - the random int type numbers generator.
     RandomIntGenerator< int > randIntGenerator;
     
-    randIntGenerator.Prepare( 11, 20 );
-    
-    for ( unsigned i = 0; i < 5; ++i ) {
-        cout << randIntGenerator.GetNext() << endl;
-    }
-    
-    cout << randIntGenerator.GetOne( 1, 10) << endl;
-    
-    for ( unsigned i = 0; i < 5; ++i ) {
-        cout << randIntGenerator.GetNext() << endl;
-    }
+    // Print information about support.
+    cout << "There is "
+         << ( randIntGenerator.IsDeviceSupport() ? "device support, hooray!" : "no device support, sorry." ) << endl;
     
     return 0;
 }

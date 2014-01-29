@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -std=c++0x -Wall
 LDFLAGS=
-SOURCES=main.cpp RandomGenerator.cpp RandomIntGenerator.cpp
+SOURCES=main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=RandomGenerator
 
