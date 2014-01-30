@@ -49,6 +49,17 @@ public:
     void MakeOneRandom( TSpec& number, const TSpec& min, const TSpec& max ) const;
     
     /**
+     * Fills an input array with random numbers within a range.
+     * IMPORTANT: You will have to be sure, that entered lenght is not too large!
+     * 
+     * @param  array   array going to be filled with random numbers
+     * @param  length  number of the elements counted from the beginning
+     * @param  min     minimum value of random numbers
+     * @param  max     maximum value of random numbers
+     */
+    void MakeOneArrayRandom( TSpec* array, const unsigned long long& length, const TSpec& min, const TSpec& max ) const;
+    
+    /**
      * Prepares for creating random numbers within a range.
      * 
      * @param  min  minimum value of random number
@@ -78,6 +89,15 @@ public:
      * @param  number  number going to be random
      */
     void MakeNextRandom( TSpec& number ) const;
+    
+    /**
+     * Fills an input array with random numbers within a range defined by Prepare().
+     * IMPORTANT: You will have to be sure, that entered lenght is not too large!
+     * 
+     * @param  array   array going to be filled with random numbers
+     * @param  length  number of the elements counted from the beginning
+     */
+    void MakeNextArrayRandom( TSpec* array, const unsigned long long& length ) const;
     
     /**
      * Checks is there a support for non-deterministic random number generation.

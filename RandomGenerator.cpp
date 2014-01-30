@@ -28,7 +28,7 @@ TSpec* IRandomGenerator< TSpec, TDist >::CreateOneArray( const unsigned long lon
                                                          const TSpec& min, const TSpec& max ) const {
     TSpec* randomArray = nullptr;
     
-    if ( size > 0 ) {
+    if ( size ) {
         randomArray = new TSpec[ size ];
         
         TDist randomNumberDistribution( min, max );
@@ -46,6 +46,19 @@ template < typename TSpec, typename TDist >
 inline void IRandomGenerator< TSpec, TDist >::MakeOneRandom( TSpec& number, const TSpec& min, const TSpec& max ) const {
     TDist randomNumberDistribution( min, max );
     number = randomNumberDistribution( ms_defaultRandomEngine );
+}
+
+
+template < typename TSpec, typename TDist >
+void IRandomGenerator< TSpec, TDist >::MakeOneArrayRandom( TSpec* array, const unsigned long long& length,
+                                                           const TSpec& min, const TSpec& max ) const {
+    if ( length ) {
+        TDist randomNumberDistribution( min, max );
+        
+        for ( unsigned long long i = 0; i < length; ++i ) {
+            array[ i ] = randomNumberDistribution( ms_defaultRandomEngine );
+        }
+    }
 }
 
 
@@ -68,9 +81,11 @@ inline TSpec IRandomGenerator< TSpec, TDist >::GetNext( void ) const {
 
 template < typename TSpec, typename TDist >
 TSpec* IRandomGenerator< TSpec, TDist >::CreateNextArray( const unsigned long long& size ) const {
+    assert( m_randomNumberDistribution );
+    
     TSpec* randomArray = nullptr;
     
-    if ( size > 0 ) {
+    if ( size ) {
         randomArray = new TSpec[ size ];
         
         for ( unsigned long long i = 0; i < size; ++i ) {
@@ -86,6 +101,18 @@ template < typename TSpec, typename TDist >
 inline void IRandomGenerator< TSpec, TDist >::MakeNextRandom( TSpec& number ) const {
     assert( m_randomNumberDistribution );
     number = ( *m_randomNumberDistribution )( ms_defaultRandomEngine );
+}
+
+
+template < typename TSpec, typename TDist >
+void IRandomGenerator< TSpec, TDist >::MakeNextArrayRandom( TSpec* array, const unsigned long long& length ) const {
+    assert( m_randomNumberDistribution );
+    
+    if ( length ) {
+        for ( unsigned long long i = 0; i < length; ++i ) {
+            array[ i ] = ( *m_randomNumberDistribution )( ms_defaultRandomEngine );
+        }
+    }
 }
 
 
