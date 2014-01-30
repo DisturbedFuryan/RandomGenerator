@@ -1,0 +1,118 @@
+RandomGenerator by Marcin Rainka
+
+Version: 1.0
+========================================================================================================================
+
+
+
+1. What is it?
+2. How to use it?
+3. Getting a single random number.
+4. Getting a single random array.
+5. Getting sequences of random numbers within the range defined before.
+
+
+
+1. What is it?
+--------------
+
+It is a random number generator that produces non-deterministic random numbers or pseudo-random, if there is no support.
+To check if there is a support from device or there is no, just use IsDeviceSupport() method for any created object
+of random generator. It returns true if there is the support, of course.
+
+
+
+2. How to use it?
+-----------------
+
+There are two types of random generators which you should use: RandomIntGenerator and RandomRealGenerator. It is obvious
+that first produces random integer numbers while the second produces real numbers.
+
+To create generator to produce integer numbers or real numbers you must specify the type. For example, we will create
+one generator to produce integer numbers of the long type and second to generate real numbers of the float type.
+
+    RandomIntGenerator< long > randomUnsignedsGenerator;
+    RandomRealGenerator< float > randomFloatsGenerator;
+
+Now, we can start generate random numbers using created generators.
+
+In the main() function you can find the example code how to use generators in all possible ways.
+
+
+
+3. Getting a single random number.
+----------------------------------
+
+There are two ways, we can call for a new random number or just send variable created before to be random.
+
+Example for random int type numbers within the range < 1; 100 >:
+
+
+    RandomIntGenerator< int > randomIntsGenerator;
+
+    int number;
+    
+    // First approach.
+    number = randomIntsGenerator.GetOne( 1, 100 );
+    
+    // Second approach.
+    randomIntsGenerator.MakeOneRandom( number, 1, 100 );
+
+
+NOTE: You should use these approachs only if you need a single random number within the specific range.
+
+
+
+4. Getting a single random array.
+---------------------------------
+
+There are two ways too. First approach allocates a new array, fills it with random numbers and returns pointer to it.
+Second approach doing the same thing, but does not allocate a new array.
+
+Example for creating a random array with ten elements (range is < 1; 100 >):
+
+
+    RandomIntGenerator< int > randomIntsGenerator;
+    
+    // First approach.
+    int* newRandomArray = randomIntsGenerator.CreateOneArray( 10, 1, 100 );
+    delete[] newRandomArray;
+    
+    // Second approach.
+    int randomArray[ 10 ];
+    randomIntsGenerator.MakeOneArrayRandom( randomArray, 10, 1, 100 )
+
+
+IMPORTANT: You will have to remember about deallocation with delete[] in the first approach for your own!
+           You will have to be sure, that entered length in the second approach is not too large!
+
+NOTE: You should use these approachs only if you need a single random array within the specific range.
+
+
+
+5. Getting sequences of random numbers within the range defined before.
+-----------------------------------------------------------------------
+
+For instance, we want to get ten thousands of random numbers within the range < 1; 100 >. There is no need to sending
+the range all the time. Moreover, that kind of approach is not so efficient.
+
+Then we use the Prepare() method. Example below.
+
+
+    RandomIntGenerator< int > randomIntsGenerator;
+    
+    randomIntsGenerator.Prepare( 1, 100 );  // We are defining the range.
+    
+    for ( unsigned i = 0; i < 10,000; ++i ) {
+        std::cout << randomIntsGenerator.GetNext() << std::endl;  // Now we only need to use GetNext() method.
+    }
+
+
+There are more possibilities after the preparation. You can use:
+
+    GetNext()
+    CreateNextArray()
+    MakeNextRandom()
+    MakeNextArrayRandom()
+    
+Each of these methods was described in RandomGenerator.hpp file.
