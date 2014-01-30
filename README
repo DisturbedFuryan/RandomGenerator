@@ -1,7 +1,7 @@
 RandomGenerator by Marcin Rainka
 
 Version: 1.0
-===================================================================================
+================================================================================
 
 
 
@@ -26,9 +26,9 @@ of random generator. It returns true if there is the support, of course.
 2. How to use it?
 -----------------
 
-There are two types of random generators which you should use: RandomIntGenerator
-and RandomRealGenerator. It is obvious that first produces random integer numbers
-while the second produces real numbers.
+There are two types of random generators which you should use:
+RandomIntGenerator and RandomRealGenerator. It is obvious that first produces
+random integer numbers while the second produces real numbers.
 
 To create generator to produce integer numbers or real numbers you must specify
 the type. For example, we will create one generator to produce integer numbers
@@ -72,9 +72,9 @@ NOTE: You should use these approachs only if you need a single random number
 4. Getting a single random array.
 ---------------------------------
 
-There are two ways too. First approach allocates a new array, fills it with random
-numbers and returns pointer to it. Second approach doing the same thing,
-but does not allocate a new array.
+There are two ways too. First approach allocates a new array, fills it
+with random numbers and returns pointer to it. Second approach doing
+the same thing, but does not allocate a new array.
 
 Example for creating a random array with ten elements (range is < 1; 100 >):
 
