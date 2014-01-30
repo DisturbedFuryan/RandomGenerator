@@ -34,7 +34,7 @@ To create generator to produce integer numbers or real numbers you must specify
 the type. For example, we will create one generator to produce integer numbers
 of the long type and second to generate real numbers of the float type.
 
-    RandomIntGenerator< long > randomUnsignedsGenerator;
+    RandomIntGenerator< long > randomLongsGenerator;
     RandomRealGenerator< float > randomFloatsGenerator;
 
 Now, we can start generate random numbers using created generators.
