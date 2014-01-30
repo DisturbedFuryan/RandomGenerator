@@ -107,7 +107,7 @@ public:
     bool IsDeviceSupport( void ) const;
 
 
-protected:
+private:
 
     /** 
      * Predefined random number generator.
