@@ -5,6 +5,12 @@
 using namespace std;
 
 
+/**
+ * Prints an input array.
+ * 
+ * @param  array  array to be printed
+ * @param  size   size of the array
+ */
 template < typename T >
 void PrintArray( const T* array, const unsigned long long& size ) {
     if ( size ) {
