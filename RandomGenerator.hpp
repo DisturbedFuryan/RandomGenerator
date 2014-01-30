@@ -50,7 +50,7 @@ public:
     
     /**
      * Fills an input array with random numbers within a range.
-     * IMPORTANT: You will have to be sure, that entered lenght is not too large!
+     * IMPORTANT: You will have to be sure, that entered length is not too large!
      * 
      * @param  array   array going to be filled with random numbers
      * @param  length  number of the elements counted from the beginning
@@ -92,7 +92,7 @@ public:
     
     /**
      * Fills an input array with random numbers within a range defined by Prepare().
-     * IMPORTANT: You will have to be sure, that entered lenght is not too large!
+     * IMPORTANT: You will have to be sure, that entered length is not too large!
      * 
      * @param  array   array going to be filled with random numbers
      * @param  length  number of the elements counted from the beginning
