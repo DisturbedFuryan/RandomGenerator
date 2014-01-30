@@ -96,6 +96,102 @@ int main( int argc, char** argv ) {
     PrintArray< double >( doublesArray, 10 );
     cout << endl;
     
+    //------------------------------------------------------------------------------------------------------------------
+    // Let's see how it works for creating sequences of numbers and arrays!
+    //------------------------------------------------------------------------------------------------------------------
+    
+    // Defining a range for future random numbers.
+    randomIntsGenerator.Prepare( 1, 100 );
+    randomDoublesGenerator.Prepare( 0.0d, 1.0d );
+    
+    // Getting a sequnece of random numbers within defined range.
+    //------------------------------------------------------------------------------------------------------------------
+    
+    cout << "Sequence of random int type numbers within defined range < 1; 100 >:\n";
+    for ( unsigned i = 0; i < 10; ++i ) {
+        cout << randomIntsGenerator.GetNext() << " ";
+    }
+    cout << endl << endl;
+    
+    cout << "Sequence of random double type numbers within defined range ( 0; 1 ):\n";
+    for ( unsigned i = 0; i < 10; ++i ) {
+        cout << randomDoublesGenerator.GetNext() << " ";
+    }
+    cout << endl << endl;
+    
+    // Creating a sequence of arrays filled with random numbers within defined range.
+    //------------------------------------------------------------------------------------------------------------------
+    
+    int* randomIntsArrays[ 4 ];
+    double* randomDoublesArrays[ 4 ];
+    
+    for ( unsigned i = 0; i < 4; ++i ) {
+        randomIntsArrays[ i ] = randomIntsGenerator.CreateNextArray( 10 );  // Needed only length now.
+        randomDoublesArrays[ i ] = randomDoublesGenerator.CreateNextArray( 10 );
+    }
+    
+    cout << "Sequence of arrays filled with random int type numbers within defined range < 1; 100 >:\n";
+    for ( unsigned i = 0; i < 4; ++i ) {
+        PrintArray< int >( randomIntsArrays[ i ] , 10);
+    }
+    cout << endl;
+    
+    cout << "Sequence of arrays filled with random double type numbers within defined range ( 0; 1 ):\n";
+    for ( unsigned i = 0; i < 4; ++i ) {
+        PrintArray< double >( randomDoublesArrays[ i ] , 10);
+    }
+    cout << endl;
+    
+    for ( unsigned i = 0; i < 4; ++i ) {
+        delete[] randomIntsArrays[ i ];
+        delete[] randomDoublesArrays[ i ];
+    }
+    
+    // Changing multiple numbers created before into random numbers within defined range.
+    //------------------------------------------------------------------------------------------------------------------
+    
+    int intNumberA, intNumberB, intNumberC;
+    
+    randomIntsGenerator.MakeNextRandom( intNumberA );
+    randomIntsGenerator.MakeNextRandom( intNumberB );
+    randomIntsGenerator.MakeNextRandom( intNumberC );
+    
+    cout << "Three int type numbers created before and changed into random numbers within defined range < 1; 100 >:"
+         << endl << intNumberA << " " << intNumberB << " " << intNumberC << endl << endl;
+         
+    double doubleNumberA, doubleNumberB, doubleNumberC;
+    
+    randomDoublesGenerator.MakeNextRandom( doubleNumberA );
+    randomDoublesGenerator.MakeNextRandom( doubleNumberB );
+    randomDoublesGenerator.MakeNextRandom( doubleNumberC );
+    
+    cout << "Three double type numbers created before and changed into random numbers within defined range ( 0; 1 ):"
+         << endl << doubleNumberA << " " << doubleNumberB << " " << doubleNumberC << endl << endl;
+    
+    // Filling a sequence of arrays created before with random numbers within defined range.
+    //------------------------------------------------------------------------------------------------------------------
+    
+    int intsArrays[ 4 ][ 10 ];
+    double doublesArrays[ 4 ][ 10 ];
+    
+    for ( unsigned i = 0; i < 4; ++i ) {
+        randomIntsGenerator.MakeNextArrayRandom( intsArrays[ i ], 10 );
+        randomDoublesGenerator.MakeNextArrayRandom( doublesArrays[ i ], 10 );
+    }
+    
+    cout << "Sequence of arrays created before and filled with random int type numbers "
+         << "within defined range < 1; 100 >:\n";
+    for ( unsigned i = 0; i < 4; ++i ) {
+        PrintArray< int >( intsArrays[ i ], 10 );
+    }
+    cout << endl;
+    
+    cout << "Sequence of arrays created before and filled with random double type numbers "
+         << "within defined range ( 0; 1 ):\n";
+    for ( unsigned i = 0; i < 4; ++i ) {
+        PrintArray< double >( doublesArrays[ i ], 10 );
+    }
+    
     return 0;
 }
 //**********************************************************************************************************************
