@@ -53,14 +53,14 @@ int main( int argc, char** argv ) {
     //------------------------------------------------------------------------------------------------------------------
     
     cout << "Single random int type number within < 1; 100 >: " << randomIntsGenerator.GetOne( 1, 100) << endl;
-    cout << "Single random double type number within ( 0; 1 ): " << randomDoublesGenerator.GetOne( 0.0d, 1.0d)
+    cout << "Single random double type number within ( 0; 1 ): " << randomDoublesGenerator.GetOne( 0.0, 1.0)
          << endl << endl;
     
     // Creating a single array filled with random numbers.
     //------------------------------------------------------------------------------------------------------------------
     
     int* randomIntsArray = randomIntsGenerator.CreateOneArray( 10, 1, 100 );
-    double* randomDoublesArray = randomDoublesGenerator.CreateOneArray( 10, 0.0d, 1.0d );
+    double* randomDoublesArray = randomDoublesGenerator.CreateOneArray( 10, 0.0, 1.0 );
     
     cout << "Single random array filled with random int type numbers within < 1; 100 >:\n";
     PrintArray< int >( randomIntsArray, 10 );
@@ -80,7 +80,7 @@ int main( int argc, char** argv ) {
     double doubleNumber;
     
     randomIntsGenerator.MakeOneRandom( intNumber, 1, 100 );
-    randomDoublesGenerator.MakeOneRandom( doubleNumber, 0.0d, 1.0d );
+    randomDoublesGenerator.MakeOneRandom( doubleNumber, 0.0, 1.0 );
     
     cout << "Single int type number changed into random within < 1; 100 >: " << intNumber << endl;
     cout << "Single double type number changed into random within ( 0; 1 ): " << doubleNumber << endl << endl;
@@ -92,7 +92,7 @@ int main( int argc, char** argv ) {
     double doublesArray[ 10 ];
     
     randomIntsGenerator.MakeOneArrayRandom( intsArray, 10, 1, 100 );
-    randomDoublesGenerator.MakeOneArrayRandom( doublesArray, 10, 0.0d, 1.0d );
+    randomDoublesGenerator.MakeOneArrayRandom( doublesArray, 10, 0.0, 1.0 );
     
     cout << "Single array created before and filled with random int type numbers within < 1; 100 >:\n";
     PrintArray< int >( intsArray, 10 );
@@ -108,7 +108,7 @@ int main( int argc, char** argv ) {
     
     // Defining a range for future random numbers.
     randomIntsGenerator.Prepare( 1, 100 );
-    randomDoublesGenerator.Prepare( 0.0d, 1.0d );
+    randomDoublesGenerator.Prepare( 0.0, 1.0 );
     
     // Getting a sequnece of random numbers within defined range.
     //------------------------------------------------------------------------------------------------------------------
