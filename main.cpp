@@ -42,7 +42,7 @@ int main( int argc, char** argv ) {
     
     // Print information about support.
     cout << "There is "
-         << ( randomIntsGenerator.IsDeviceSupport() ? "device support, hooray!" : "no device support, sorry." )
+         << ( randomIntsGenerator.isDeviceSupport() ? "device support, hooray!" : "no device support, sorry." )
          << endl << endl;
     
     //------------------------------------------------------------------------------------------------------------------
@@ -52,15 +52,15 @@ int main( int argc, char** argv ) {
     // Getting single random number.
     //------------------------------------------------------------------------------------------------------------------
     
-    cout << "Single random int type number within < 1; 100 >: " << randomIntsGenerator.GetOne( 1, 100) << endl;
-    cout << "Single random double type number within ( 0; 1 ): " << randomDoublesGenerator.GetOne( 0.0, 1.0)
+    cout << "Single random int type number within < 1; 100 >: " << randomIntsGenerator.getOne( 1, 100) << endl;
+    cout << "Single random double type number within ( 0; 1 ): " << randomDoublesGenerator.getOne( 0.0, 1.0)
          << endl << endl;
     
     // Creating a single array filled with random numbers.
     //------------------------------------------------------------------------------------------------------------------
     
-    int* randomIntsArray = randomIntsGenerator.CreateOneArray( 10, 1, 100 );
-    double* randomDoublesArray = randomDoublesGenerator.CreateOneArray( 10, 0.0, 1.0 );
+    int* randomIntsArray = randomIntsGenerator.createOneArray( 10, 1, 100 );
+    double* randomDoublesArray = randomDoublesGenerator.createOneArray( 10, 0.0, 1.0 );
     
     cout << "Single random array filled with random int type numbers within < 1; 100 >:\n";
     PrintArray< int >( randomIntsArray, 10 );
@@ -79,8 +79,8 @@ int main( int argc, char** argv ) {
     int intNumber;
     double doubleNumber;
     
-    randomIntsGenerator.MakeOneRandom( intNumber, 1, 100 );
-    randomDoublesGenerator.MakeOneRandom( doubleNumber, 0.0, 1.0 );
+    randomIntsGenerator.makeOneRandom( intNumber, 1, 100 );
+    randomDoublesGenerator.makeOneRandom( doubleNumber, 0.0, 1.0 );
     
     cout << "Single int type number changed into random within < 1; 100 >: " << intNumber << endl;
     cout << "Single double type number changed into random within ( 0; 1 ): " << doubleNumber << endl << endl;
@@ -91,8 +91,8 @@ int main( int argc, char** argv ) {
     int intsArray[ 10 ];
     double doublesArray[ 10 ];
     
-    randomIntsGenerator.MakeOneArrayRandom( intsArray, 10, 1, 100 );
-    randomDoublesGenerator.MakeOneArrayRandom( doublesArray, 10, 0.0, 1.0 );
+    randomIntsGenerator.makeOneArrayRandom( intsArray, 10, 1, 100 );
+    randomDoublesGenerator.makeOneArrayRandom( doublesArray, 10, 0.0, 1.0 );
     
     cout << "Single array created before and filled with random int type numbers within < 1; 100 >:\n";
     PrintArray< int >( intsArray, 10 );
@@ -107,21 +107,21 @@ int main( int argc, char** argv ) {
     //------------------------------------------------------------------------------------------------------------------
     
     // Defining a range for future random numbers.
-    randomIntsGenerator.Prepare( 1, 100 );
-    randomDoublesGenerator.Prepare( 0.0, 1.0 );
+    randomIntsGenerator.prepare( 1, 100 );
+    randomDoublesGenerator.prepare( 0.0, 1.0 );
     
-    // Getting a sequnece of random numbers within defined range.
+    // Getting a sequence of random numbers within defined range.
     //------------------------------------------------------------------------------------------------------------------
     
     cout << "Sequence of random int type numbers within defined range < 1; 100 >:\n";
     for ( unsigned i = 0; i < 10; ++i ) {
-        cout << randomIntsGenerator.GetNext() << " ";
+        cout << randomIntsGenerator.getNext() << " ";
     }
     cout << endl << endl;
     
     cout << "Sequence of random double type numbers within defined range ( 0; 1 ):\n";
     for ( unsigned i = 0; i < 10; ++i ) {
-        cout << randomDoublesGenerator.GetNext() << " ";
+        cout << randomDoublesGenerator.getNext() << " ";
     }
     cout << endl << endl;
     
@@ -132,8 +132,8 @@ int main( int argc, char** argv ) {
     double* randomDoublesArrays[ 4 ];
     
     for ( unsigned i = 0; i < 4; ++i ) {
-        randomIntsArrays[ i ] = randomIntsGenerator.CreateNextArray( 10 );  // Needed only length now.
-        randomDoublesArrays[ i ] = randomDoublesGenerator.CreateNextArray( 10 );
+        randomIntsArrays[ i ] = randomIntsGenerator.createNextArray( 10 );  // Needed only length now.
+        randomDoublesArrays[ i ] = randomDoublesGenerator.createNextArray( 10 );
     }
     
     cout << "Sequence of arrays filled with random int type numbers within defined range < 1; 100 >:\n";
@@ -158,18 +158,18 @@ int main( int argc, char** argv ) {
     
     int intNumberA, intNumberB, intNumberC;
     
-    randomIntsGenerator.MakeNextRandom( intNumberA );
-    randomIntsGenerator.MakeNextRandom( intNumberB );
-    randomIntsGenerator.MakeNextRandom( intNumberC );
+    randomIntsGenerator.makeNextRandom( intNumberA );
+    randomIntsGenerator.makeNextRandom( intNumberB );
+    randomIntsGenerator.makeNextRandom( intNumberC );
     
     cout << "Three int type numbers created before and changed into random numbers within defined range < 1; 100 >:"
          << endl << intNumberA << " " << intNumberB << " " << intNumberC << endl << endl;
          
     double doubleNumberA, doubleNumberB, doubleNumberC;
     
-    randomDoublesGenerator.MakeNextRandom( doubleNumberA );
-    randomDoublesGenerator.MakeNextRandom( doubleNumberB );
-    randomDoublesGenerator.MakeNextRandom( doubleNumberC );
+    randomDoublesGenerator.makeNextRandom( doubleNumberA );
+    randomDoublesGenerator.makeNextRandom( doubleNumberB );
+    randomDoublesGenerator.makeNextRandom( doubleNumberC );
     
     cout << "Three double type numbers created before and changed into random numbers within defined range ( 0; 1 ):"
          << endl << doubleNumberA << " " << doubleNumberB << " " << doubleNumberC << endl << endl;
@@ -181,8 +181,8 @@ int main( int argc, char** argv ) {
     double doublesArrays[ 4 ][ 10 ];
     
     for ( unsigned i = 0; i < 4; ++i ) {
-        randomIntsGenerator.MakeNextArrayRandom( intsArrays[ i ], 10 );
-        randomDoublesGenerator.MakeNextArrayRandom( doublesArrays[ i ], 10 );
+        randomIntsGenerator.makeNextArrayRandom( intsArrays[ i ], 10 );
+        randomDoublesGenerator.makeNextArrayRandom( doublesArrays[ i ], 10 );
     }
     
     cout << "Sequence of arrays created before and filled with random int type numbers "

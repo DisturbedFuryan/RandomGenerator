@@ -15,86 +15,86 @@ template < typename TSpec, typename TDist >
 class IRandomGenerator {
 public:
     IRandomGenerator();
-    ~IRandomGenerator() { CleanRandomNumberDistribution(); }
+    ~IRandomGenerator() { cleanRandomNumberDistribution(); }
 
     /** Gets a single random number within a range.
      * 
-     *  @param   min  minimum value of random number
-     *  @param   max  maximum value of random number
-     *  @return       single random number
+     *  @param   min  Minimum value of random number.
+     *  @param   max  Maximum value of random number.
+     *  @return       Single random number.
      */
-    TSpec GetOne( const TSpec& min, const TSpec& max ) const;
+    TSpec getOne( const TSpec& min, const TSpec& max ) const;
     
     /** Creates a single array filled with random numbers.
      *  IMPORTANT: You will have to remember about deallocation with delete[] for your own!
      * 
-     *  @param   size  size of the array
-     *  @param   min   minimum value of random numbers
-     *  @param   max   maximum value of random numbers
-     *  @return        pointer to allocated and filled array
+     *  @param   size  Size of the array.
+     *  @param   min   Minimum value of random numbers.
+     *  @param   max   Maximum value of random numbers.
+     *  @return        Pointer to allocated and filled array.
      */
-    TSpec* CreateOneArray( const unsigned long long& size,
+    TSpec* createOneArray( const unsigned long long& size,
                            const TSpec& min, const TSpec& max ) const;
     
     /** Changes an input number into random number within a range.
      * 
-     *  @param  number  number going to be random
-     *  @param  min     minimum value of random number
-     *  @param  max     maximum value of random number
+     *  @param  number  Number going to be random.
+     *  @param  min     Minimum value of random number.
+     *  @param  max     Maximum value of random number.
      */
-    void MakeOneRandom( TSpec& number, const TSpec& min, const TSpec& max ) const;
+    void makeOneRandom( TSpec& number, const TSpec& min, const TSpec& max ) const;
     
     /** Fills an input array with random numbers within a range.
      *  IMPORTANT: You will have to be sure, that entered length is not too large!
      * 
-     *  @param  array   array going to be filled with random numbers
-     *  @param  length  number of the elements counted from the beginning
-     *  @param  min     minimum value of random numbers
-     *  @param  max     maximum value of random numbers
+     *  @param  array   Array going to be filled with random numbers.
+     *  @param  length  Number of the elements counted from the beginning.
+     *  @param  min     Minimum value of random numbers.
+     *  @param  max     Maximum value of random numbers.
      */
-    void MakeOneArrayRandom( TSpec* array, const unsigned long long& length,
+    void makeOneArrayRandom( TSpec* array, const unsigned long long& length,
                              const TSpec& min, const TSpec& max ) const;
     
     /** Prepares for creating random numbers within a range.
      * 
-     *  @param  min  minimum value of random number
-     *  @param  max  maximum value of random number
+     *  @param  min  Minimum value of random number.
+     *  @param  max  Maximum value of random number.
      */
-    void Prepare( const TSpec& min, const TSpec& max );
+    void prepare( const TSpec& min, const TSpec& max );
     
     /** Gets a random number within a range defined by Prepare().
      * 
-     *  @return  random number within a defined range
+     *  @return  Random number within a defined range.
      */
-    TSpec GetNext() const;
+    TSpec getNext() const;
     
     /** Creates an array filled with random numbers within a range defined by Prepare().
      *  IMPORTANT: You will have to remember about deallocation with delete[] for your own!
      * 
-     *  @param   size  size of the array
-     *  @return        pointer to allocated and filled array
+     *  @param   size  Size of the array.
+     *  @return        Pointer to allocated and filled array.
      */
-    TSpec* CreateNextArray( const unsigned long long& size ) const;
+    TSpec* createNextArray( const unsigned long long& size ) const;
     
     /** Changes an input number into random number within a range defined by Prepare().
      * 
-     *  @param  number  number going to be random
+     *  @param  number  Number going to be random.
      */
-    void MakeNextRandom( TSpec& number ) const;
+    void makeNextRandom( TSpec& number ) const;
     
     /** Fills an input array with random numbers within a range defined by Prepare().
      *  IMPORTANT: You will have to be sure, that entered length is not too large!
      * 
-     *  @param  array   array going to be filled with random numbers
-     *  @param  length  number of the elements counted from the beginning
+     *  @param  array   Array going to be filled with random numbers.
+     *  @param  length  Number of the elements counted from the beginning.
      */
-    void MakeNextArrayRandom( TSpec* array, const unsigned long long& length ) const;
+    void makeNextArrayRandom( TSpec* array, const unsigned long long& length ) const;
     
     /** Checks is there a support for non-deterministic random number generation.
      * 
-     *  @return  true when there is a support and false when there is no
+     *  @return  True when there is a support and false when there is no.
      */
-    bool IsDeviceSupport() const { return ms_isDeviceSupport; }
+    bool isDeviceSupport() const { return ms_isDeviceSupport; }
 
 private:
 
@@ -126,7 +126,7 @@ private:
     TDist* m_randomNumberDistribution;
     
     /** Cleans a random number distribution. */
-    void CleanRandomNumberDistribution();
+    void cleanRandomNumberDistribution();
 };
 //==================================================================================================
 
@@ -141,14 +141,14 @@ inline IRandomGenerator< TSpec, TDist >::IRandomGenerator()
 
 
 template < typename TSpec, typename TDist >
-inline TSpec IRandomGenerator< TSpec, TDist >::GetOne( const TSpec& min, const TSpec& max ) const {
+inline TSpec IRandomGenerator< TSpec, TDist >::getOne( const TSpec& min, const TSpec& max ) const {
     TDist randomNumberDistribution( min, max );
     return randomNumberDistribution( ms_defaultRandomEngine );
 }
 
 
 template < typename TSpec, typename TDist >
-TSpec* IRandomGenerator< TSpec, TDist >::CreateOneArray( const unsigned long long& size,
+TSpec* IRandomGenerator< TSpec, TDist >::createOneArray( const unsigned long long& size,
                                                          const TSpec& min, const TSpec& max )
                                                                                              const {
     TSpec* randomArray = nullptr;
@@ -158,9 +158,8 @@ TSpec* IRandomGenerator< TSpec, TDist >::CreateOneArray( const unsigned long lon
         
         TDist randomNumberDistribution( min, max );
         
-        for ( unsigned long long i = 0; i < size; ++i ) {
+        for ( unsigned long long i = 0; i < size; ++i )
             randomArray[ i ] = randomNumberDistribution( ms_defaultRandomEngine );
-        }
     }
     
     return randomArray;
@@ -168,7 +167,7 @@ TSpec* IRandomGenerator< TSpec, TDist >::CreateOneArray( const unsigned long lon
 
 
 template < typename TSpec, typename TDist >
-inline void IRandomGenerator< TSpec, TDist >::MakeOneRandom( TSpec& number, const TSpec& min,
+inline void IRandomGenerator< TSpec, TDist >::makeOneRandom( TSpec& number, const TSpec& min,
                                                              const TSpec& max ) const {
     TDist randomNumberDistribution( min, max );
     number = randomNumberDistribution( ms_defaultRandomEngine );
@@ -176,24 +175,23 @@ inline void IRandomGenerator< TSpec, TDist >::MakeOneRandom( TSpec& number, cons
 
 
 template < typename TSpec, typename TDist >
-void IRandomGenerator< TSpec, TDist >::MakeOneArrayRandom( TSpec* array,
+void IRandomGenerator< TSpec, TDist >::makeOneArrayRandom( TSpec* array,
                                                            const unsigned long long& length,
                                                            const TSpec& min, const TSpec& max )
                                                                                              const {
     if ( length ) {
         TDist randomNumberDistribution( min, max );
         
-        for ( unsigned long long i = 0; i < length; ++i ) {
+        for ( unsigned long long i = 0; i < length; ++i )
             array[ i ] = randomNumberDistribution( ms_defaultRandomEngine );
-        }
     }
 }
 
 
 template < typename TSpec, typename TDist >
-inline void IRandomGenerator< TSpec, TDist >::Prepare( const TSpec& min, const TSpec& max ) {
+inline void IRandomGenerator< TSpec, TDist >::prepare( const TSpec& min, const TSpec& max ) {
     // Clean a previous distribution.
-    CleanRandomNumberDistribution();
+    cleanRandomNumberDistribution();
     
     // Make a new one.
     m_randomNumberDistribution = new TDist( min, max );
@@ -201,14 +199,14 @@ inline void IRandomGenerator< TSpec, TDist >::Prepare( const TSpec& min, const T
 
 
 template < typename TSpec, typename TDist >
-inline TSpec IRandomGenerator< TSpec, TDist >::GetNext( void ) const {
+inline TSpec IRandomGenerator< TSpec, TDist >::getNext( void ) const {
     assert( m_randomNumberDistribution );
     return ( *m_randomNumberDistribution )( ms_defaultRandomEngine );
 }
 
 
 template < typename TSpec, typename TDist >
-TSpec* IRandomGenerator< TSpec, TDist >::CreateNextArray( const unsigned long long& size ) const {
+TSpec* IRandomGenerator< TSpec, TDist >::createNextArray( const unsigned long long& size ) const {
     assert( m_randomNumberDistribution );
     
     TSpec* randomArray = nullptr;
@@ -216,9 +214,8 @@ TSpec* IRandomGenerator< TSpec, TDist >::CreateNextArray( const unsigned long lo
     if ( size ) {
         randomArray = new TSpec[ size ];
         
-        for ( unsigned long long i = 0; i < size; ++i ) {
+        for ( unsigned long long i = 0; i < size; ++i )
             randomArray[ i ] = ( *m_randomNumberDistribution )( ms_defaultRandomEngine );
-        }
     }
     
     return randomArray;
@@ -226,23 +223,21 @@ TSpec* IRandomGenerator< TSpec, TDist >::CreateNextArray( const unsigned long lo
 
 
 template < typename TSpec, typename TDist >
-inline void IRandomGenerator< TSpec, TDist >::MakeNextRandom( TSpec& number ) const {
+inline void IRandomGenerator< TSpec, TDist >::makeNextRandom( TSpec& number ) const {
     assert( m_randomNumberDistribution );
     number = ( *m_randomNumberDistribution )( ms_defaultRandomEngine );
 }
 
 
 template < typename TSpec, typename TDist >
-void IRandomGenerator< TSpec, TDist >::MakeNextArrayRandom( TSpec* array,
+void IRandomGenerator< TSpec, TDist >::makeNextArrayRandom( TSpec* array,
                                                             const unsigned long long& length )
                                                                                              const {
     assert( m_randomNumberDistribution );
     
-    if ( length ) {
-        for ( unsigned long long i = 0; i < length; ++i ) {
+    if ( length )
+        for ( unsigned long long i = 0; i < length; ++i )
             array[ i ] = ( *m_randomNumberDistribution )( ms_defaultRandomEngine );
-        }
-    }
 }
 
 
@@ -263,7 +258,7 @@ IRandomGenerator< TSpec, TDist >::ms_defaultRandomEngineSeeder;
 
 
 template < typename TSpec, typename TDist >
-inline void IRandomGenerator< TSpec, TDist >::CleanRandomNumberDistribution() {
+inline void IRandomGenerator< TSpec, TDist >::cleanRandomNumberDistribution() {
     if ( m_randomNumberDistribution ) {
         delete m_randomNumberDistribution;
         m_randomNumberDistribution = nullptr;
