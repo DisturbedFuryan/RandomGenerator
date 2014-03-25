@@ -97,7 +97,6 @@ public:
     bool isDeviceSupport() const { return ms_isDeviceSupport; }
 
 private:
-
     /** Predefined random number generator. */
     static std::default_random_engine ms_defaultRandomEngine;
     
